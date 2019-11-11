@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>CLICK and DRAW</title>
+ <style>
+  body {
+   overflow: hidden;
+  }
+  canvas {
+  border:5px solid #d3d3d3;
+  height: 80vh;
+  width: 80vw;
+  display: block;
+}
+ </style>
+</head>
+
+<body>
+ <canvas id = "myCanvas" width = "350" height = "500"></canvas>
+ <input type = "color" id = "picker"/>
+ <input type="button" value="clear" id="clr" onclick="clearCanvas()" style="position:absolute;top:20%;left:87%; height:30px;">
+ <input type="button" value="g" id="green" onclick="color(this)" style="position:absolute;top:15%;left:85%;width:10px;height:20px;">
+ <input type="button" value="b" id="blue" onclick="color(this)" style="position:absolute;top:15%;left:87%;width:10px;height:20px;">
+ <input type="button" value="r" id="red" onclick="color(this)" style="position:absolute;top:15%;left:89%;width:10px;height:20px;">
+ <input type="button" value="y" id="yellow" onclick="color(this)" style="position:absolute;top:15%;left:91%;width:10px;height:20px;">
+ <!-- <canvas>Please update your browser</canvas> -->
+ <script>
+ var canvas = document.getElementById('myCanvas');
+ var context = canvas.getContext("2d");
+ var height = canvas.height = window.innerHeight * 0.8;
+ var width = canvas.width = window.innerWidth * 0.8;
+ var picker = "black";
+ function change(e){
+    picker = this.value;
+}
+document.getElementById("picker").onchange = change;
+
+ document.addEventListener("mousemove", onMouseMove, true);
+
+ function onMouseMove(e) {
+
+      context.beginPath();
+      context.arc(e.clientX, e.clientY, 10, 0, Math.PI * 2, true);
+      context.strokeStyle = picker;
+      context.stroke();
+      context.fillStyle = picker;
+      context.fill();
+
+ }
+ function clearCanvas() {
+   context.fillStyle = "#ffffff";
+   context.fillRect(0,0,canvas.width, canvas.height);
+}
+
+function color(obj) {
+    switch (obj.id) {
+        case "green":
+            picker = "green";
+            break;
+        case "blue":
+            picker = "blue";
+            break;
+        case "red":
+            picker = "red";
+            break;
+        case "yellow":
+            picker = "yellow";
+            break;
+    }
+}
+window.addEventListener('keyup', function (e2) {
+  if (e2.keyCode === 71) {
+     var button = document.getElementById("green");
+     button.click();
+  }
+}, false);
+
+window.addEventListener('keyup', function (e3) {
+  if (e3.keyCode === 66) {
+     var button2 = document.getElementById("blue");
+     button2.click();
+  }
+}, false);
+
+window.addEventListener('keyup', function (e4) {
+  if (e4.keyCode === 82) {
+     var button4 = document.getElementById("red");
+     button4.click();
+  }
+}, false);
+
+window.addEventListener('keyup', function (e5) {
+  if (e5.keyCode === 89) {
+     var button5 = document.getElementById("yellow");
+     button5.click();
+  }
+}, false);
+
+var link = document.getElementById("clr");
+document.onkeydown = function (e) {
+    if (e.keyCode == 32) {
+        link.click();
+    }
+}
+ </script>
+</body>
+</html>
